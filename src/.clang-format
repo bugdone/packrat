@@ -1,0 +1,23 @@
+Language:        Cpp
+Standard:        Auto
+
+# indentation
+UseTab:          Never
+IndentWidth:     4
+AccessModifierOffset: -4
+ConstructorInitializerIndentWidth: 4
+IndentCaseLabels: false
+
+# newlines
+ColumnLimit:     100
+NamespaceIndentation: None
+BinPackParameters: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+AlwaysBreakTemplateDeclarations: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# spaces
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+PointerAlignment: Right
+DerivePointerAlignment: false

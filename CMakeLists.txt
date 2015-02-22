@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+include(FindPackageHandleStandardArgs)
+
+find_package(STEAMWORKS REQUIRED)
+find_package(Protobuf REQUIRED)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${STEAMWORKS_INCLUDE_DIR} ${PROTOBUF_INCLUDE_DIRS})
+
+
+PROTOBUF_GENERATE_CPP(CSTRIKEGCPROTO_SRCS CSTRIKEGCPROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/proto/cstrike15_gcmessages.proto)
+PROTOBUF_GENERATE_CPP(STEAMPROTO_SRCS STEAMPROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/proto/steammessages.proto)
+PROTOBUF_GENERATE_CPP(GCPROTO_SRCS GCPROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/proto/gcsdk_gcmessages.proto)
+PROTOBUF_GENERATE_CPP(GCSYSROTO_SRCS GCSYSPROTO_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/proto/gcsystemmsgs.proto)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+add_executable(broiler
+    src/main.cpp
+    src/CSGOClient.cpp
+    src/CSGOMatchList.cpp
+    src/BoilerException.cpp
+    ${CSTRIKEGCPROTO_SRCS}
+    ${CSTRIKEGCPROTO_HDRS}
+    ${STEAMPROTO_SRCS}
+    ${STEAMPROTO_HDRS}
+    ${GCPROTO_SRCS}
+    ${GCPROTO_HDRS}
+    ${GCSYSPROTO_SRCS}
+    ${GCSYSPROTO_HDRS})
+target_link_libraries(broiler ${STEAMWORKS_LIBRARY} ${PROTOBUF_LIBRARIES})

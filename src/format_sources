@@ -1,0 +1,1 @@
+*.cpp *.hpp: ln -s `pwd`/.clang-format `dirname $TMPFILE`; clang-format -i $TMPFILE -style=file
