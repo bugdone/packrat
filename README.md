@@ -12,11 +12,11 @@ C++ code is based on https://bitbucket.org/ACB/boiler hence GPL3.
 ### Usage ###
 Edit __packrat.ini__ to configure the path to steam binary, demo directory and steam users.
 
-Running packrat __kills__ the current steam process, launch steam logged in with each user and download the latest 8 demos (if they aren't present in that directory). Since this will launch steam which pops up windows even with _-silent_ (which doesn't seem to work at all on linux) the most convenient way to use it is to set it up in cron/windows scheduled tasks to run when you're afk.
+Running packrat __kills__ the current steam process, launches steam logged in with each user and downloads the latest 8 demos (if they aren't present in that directory). Since steam pops up windows (log in window, steam window) when it starts even with _-silent_ (which doesn't seem to work at all on linux) the most convenient way to use it is to set it up in cron/windows scheduled tasks (ie. run every night at 4:00).
 
 It will __NOT__ check if the downloaded demos are corrupted.
 
-Since packrat generates the same files that the csgo client does when downloading a demo from the Watch menu, the demos should show up in the Watch menu (but it doesn't always happen for some reason).
+Since packrat generates the same files that the csgo client does when downloading a demo from the Watch menu (x.dem and x.dem.info), the demos should show up in the Watch menu (but it doesn't always happen for some reason).
 
 ### Build dependencies ###
 * [Steamworks SDK](https://partner.steamgames.com/)
