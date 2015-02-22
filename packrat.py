@@ -13,15 +13,19 @@ from contextlib import contextmanager
 cfg = {'accounts': {}}
 
 
+def kill_steam():
+    if os.name == 'nt':
+        os.system('taskkill /im Steam.exe /F')
+    else:
+        os.system('killall -9 steam')
+
+
 @contextmanager
 def steam(user, password):
     subprocess.Popen([cfg['steam_binary'], '-silent', '-login', user, password])
     time.sleep(cfg['wait_steam'])
     yield
-    if os.name == 'nt':
-        os.system('taskkill /im Steam.exe /F')
-    else:
-        os.system('killall -9 steam')
+    kill_steam()
 
 
 def download_bz2(link, dest):
@@ -58,6 +62,7 @@ def read_config():
 
 if __name__ == '__main__':
     read_config()
+    kill_steam()
     for user, password in cfg['accounts'].iteritems():
         with steam(user, password):
             output = subprocess.check_output(['./broiler', cfg['demo_directory']])
