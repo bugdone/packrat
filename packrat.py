@@ -67,4 +67,7 @@ if __name__ == '__main__':
         with steam(user, password):
             output = subprocess.check_output(['./broiler', cfg['demo_directory']])
             for link in output.splitlines():
-                download(link)
+                try:
+                    download(link)
+                except Exception, e:
+                    print e
