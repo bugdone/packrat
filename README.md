@@ -1,9 +1,6 @@
 ### About ###
 Packrat downloads the latest CSGO matchmaking demos for a set of steam accounts.
 
-### Windows build ###
-You can find a windows build [here](https://bitbucket.org/bugdone/packrat/downloads/packrat_win32.zip).
-
 ### Disclamers ###
 Use at your own risk.
 
