@@ -1,4 +1,3 @@
-import sys
 import os
 import os.path
 import subprocess
@@ -56,18 +55,32 @@ def read_config():
     for key in ['steam_binary', 'demo_directory']:
         cfg[key] = config.get('general', key)
     cfg['wait_steam'] = config.getint('general', 'wait_steam')
-    for k, v in config.items('accounts'):
-        cfg['accounts'][k] = v
+    try:
+        for k, v in config.items('accounts'):
+            cfg['accounts'][k] = v
+    except:
+        pass
+
+
+def get_demo_links():
+    output = subprocess.check_output(['./broiler', cfg['demo_directory']])
+    return output.splitlines()
 
 
 if __name__ == '__main__':
     read_config()
-    kill_steam()
-    for user, password in cfg['accounts'].iteritems():
-        with steam(user, password):
-            output = subprocess.check_output(['./broiler', cfg['demo_directory']])
-            for link in output.splitlines():
-                try:
-                    download(link)
-                except Exception, e:
-                    print e
+    links = []
+
+    if cfg['accounts']:
+        kill_steam()
+        for user, password in cfg['accounts'].iteritems():
+            with steam(user, password):
+                links += get_demo_links()
+    else:
+        links += get_demo_links()
+
+    for link in links:
+        try:
+            download(link)
+        except Exception, e:
+            print e
