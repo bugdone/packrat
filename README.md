@@ -21,3 +21,12 @@ Since packrat generates the same files that the csgo client does when downloadin
 * [protobuf](https://developers.google.com/protocol-buffers/docs/downloads)
 
 * cmake
+
+### Building on Linux ###
+Download Steamworks SDK (you need to create a free account) and extract it somewhere. Set the environment variable __STEAMWORKS_SDK__ to the path where you extracted it. Cmake will use it to figure out the paths to libs and headers.
+
+For protobuf a package named something like _protobuf-dev_ should be available on your official distribution repository.
+
+Once the dependencies are set, run the usual __mkdir build && cd build && cmake .. && make__
+
+The broiler binary needs to find steam_appid.txt into its directory or the directory from where it is run.
