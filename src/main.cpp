@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
                 match.mutable_roundstats()->clear_map();
                 std::cerr << "Creating " << dotDemDotInfoFile << std::endl;
                 std::ofstream myfile;
-                myfile.open(dotDemDotInfoFile);
+                myfile.open(dotDemDotInfoFile, std::ios::binary);
                 if (!match.SerializeToOstream(&myfile))
                     Error("Error", std::string("Cannot serialize to file ") + dotDemDotInfoFile);
                 myfile.close();
