@@ -11,7 +11,7 @@ If you don't have any accounts configured, it will download the demos for the cu
 
 It will __NOT__ check if the downloaded demos are corrupted.
 
-Since packrat generates the same files that the csgo client does when downloading a demo from the Watch menu (x.dem and x.dem.info), the demos should show up in the Watch menu (but it doesn't always happen for some reason).
+Since packrat generates the same files that the csgo client does when downloading a demo from the Watch menu (x.dem and x.dem.info), the demos should show up in the Watch menu.
 
 ### Build dependencies ###
 * [Steamworks SDK](https://partner.steamgames.com/)
