@@ -2,8 +2,6 @@
 Packrat downloads the latest CSGO matchmaking demos for a set of steam accounts.
 
 ### Disclamers ###
-Use at your own risk.
-
 C++ code is based on https://bitbucket.org/ACB/boiler hence GPL3.
 
 ### Usage ###
