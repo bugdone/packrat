@@ -1,6 +1,9 @@
 ### About ###
 Packrat downloads the latest CSGO matchmaking demos for a set of steam accounts.
 
+### Dependencies ###
+On Windows you need the [Visual C++ Redistributable Packages for VS 2013 x86](http://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe)
+
 ### Disclamers ###
 C++ code is based on https://bitbucket.org/ACB/boiler hence GPL3.
 
