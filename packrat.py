@@ -41,7 +41,7 @@ def download(link):
     download_bz2(link, dest + ".tmp")
     os.rename(dest + ".tmp", dest)
 
-    
+
 def demo_filename(link):
     m = re.match('^http://replay(\d+).valve.net/730/([_\d]+).dem.bz2$', link)
     if m is None:
