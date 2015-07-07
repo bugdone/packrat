@@ -38,7 +38,8 @@ def download_bz2(link, dest):
 
 def download(link):
     dest = os.path.join(cfg['demo_directory'], demo_filename(link))
-    download_bz2(link, dest)
+    download_bz2(link, dest + ".tmp")
+    os.rename(dest + ".tmp", dest)
 
     
 def demo_filename(link):
