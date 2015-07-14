@@ -41,11 +41,12 @@ def download(link):
     download_bz2(link, dest + ".tmp")
     os.rename(dest + ".tmp", dest)
 
+def match_link(link):
+    return re.match('^http://replay(\d+).valve.net/730/([_\d]+).dem.bz2$', link)
+
 
 def demo_filename(link):
-    m = re.match('^http://replay(\d+).valve.net/730/([_\d]+).dem.bz2$', link)
-    if m is None:
-        raise Exception('Cannot parse demo link')
+    m = match_link(link)
     return 'match730_%s_%s.dem' % (m.groups()[1], m.groups()[0])
 
 
@@ -65,7 +66,7 @@ def read_config():
 
 def get_demo_links():
     output = subprocess.check_output(['./broiler', cfg['demo_directory']])
-    return output.splitlines()
+    return [line for line in output.splitlines() if match_link(line)]
 
 
 if __name__ == '__main__':
