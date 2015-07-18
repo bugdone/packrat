@@ -21,9 +21,19 @@ bool file_exists(const std::string &name) {
     return ret;
 }
 
-std::string dotDem(const CDataGCCStrike15_v2_MatchInfo &match) {
+CMsgGCCStrike15_v2_MatchmakingServerRoundStats* getLegacyRoundStats(CDataGCCStrike15_v2_MatchInfo& match)
+{
+    if (match.has_roundstats_legacy())
+        return match.mutable_roundstats_legacy();
+    for (auto i = 0; i < match.roundstatsall_size(); ++i)
+        if (match.roundstatsall(i).has_map() && match.roundstatsall(i).has_reservationid())
+            return match.mutable_roundstatsall(i);
+    return nullptr;
+}
+
+std::string dotDem(const CDataGCCStrike15_v2_MatchInfo& match, const CMsgGCCStrike15_v2_MatchmakingServerRoundStats& rs) {
     std::ostringstream out;
-    out << "match730_" << std::setfill('0') << std::setw(21) << match.roundstats().reservationid()
+    out << "match730_" << std::setfill('0') << std::setw(21) << rs.reservationid()
         << "_" << std::setw(10) << match.watchablematchinfo().tv_port() << "_"
         << match.watchablematchinfo().server_ip() << ".dem";
     return out.str();
@@ -73,12 +83,17 @@ int main(int argc, char *argv[]) {
         refresher.RefreshWait();
         std::vector<CDataGCCStrike15_v2_MatchInfo> matches = refresher.Matches();
         for (auto &match : matches) {
-            std::string dotDemFile = directory + "/" + dotDem(match);
+            CMsgGCCStrike15_v2_MatchmakingServerRoundStats* rs = getLegacyRoundStats(match);
+            if (!rs) {
+                std::cerr << "Cannot get info for match" << std::endl;
+                continue;
+            }
+            std::string dotDemFile = directory + "/" + dotDem(match, *rs);
             std::string dotDemDotInfoFile = dotDemFile + ".info";
-            std::string link = match.roundstats().map();
+            std::string link = rs->map();
 
             if (!file_exists(dotDemDotInfoFile)) {
-                match.mutable_roundstats()->clear_map();
+                rs->clear_map();
                 std::cerr << "Creating " << dotDemDotInfoFile << std::endl;
                 std::ofstream myfile;
                 myfile.open(dotDemDotInfoFile, std::ios::binary);
