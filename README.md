@@ -1,3 +1,5 @@
+This project only made sense back in the day when there were no better alternatives. See [packrat.js](https://github.com/bugdone/packrat.js)
+
 ### About ###
 Packrat downloads the latest CSGO matchmaking demos for a set of steam accounts.
 
